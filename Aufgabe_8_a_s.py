@@ -27,6 +27,8 @@ def myfunc():
 
 res = myfunc()
 print(res)
+# res = myfunc()    switch off for Module
+# print(res)        switch off for Module
 
 
 #Aufgabe_8_c_s
@@ -34,7 +36,9 @@ print(res)
 print("Aufgabe c:")
 from datetime import date, time, datetime                  # datetime importieren
 
+def conftime(res): # only used for Module
 def conftime():
+
     my_Confirmed_Dict = {}                                     # leeres Dictionary erzeugen
     for name,age in res.items():                            # myDict aus vorheriger Aufgabe
         print (name,age)                                           # Ausgabe der Eintraege
@@ -62,4 +66,5 @@ def conftime():
          var = item["time"].strftime("%A, %B %Y %H-%M-%S")
          print(f"User {key:10s} is    {item['age']:3d}  years old and was confirmed at {var}. ")
 
+# conftime() switch off for Module
 conftime()
