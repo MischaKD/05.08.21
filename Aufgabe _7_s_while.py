@@ -27,9 +27,9 @@ while active:
       age = int(input("Please enter you age: "))
       myDict[name] = age
 
-print(f"{'Name':>10} {'age':<10}:")
-for item, amount in myDict.items():  # dct.iteritems() in Python 2
-    print(f"{item:>10} {amount:<10}")
+print(f"{'Name':<15} {'age':<5}")
+for item, amount in myDict.items():
+    print(f"{item:<15} {amount:<5}")
 
 
 
