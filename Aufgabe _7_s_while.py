@@ -29,7 +29,7 @@ while active:
 
 print(f"{'Name':<15} {'age':<5}")
 for item, amount in myDict.items():
-    print(f"{item:<15} {amount:<5}")
+    print(f"{item:<15s} {amount:<5}")
 
 
 
