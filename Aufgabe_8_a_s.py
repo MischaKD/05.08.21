@@ -36,7 +36,7 @@ print(res)
 print("Aufgabe c:")
 from datetime import date, time, datetime                  # datetime importieren
 
-def conftime(res): # only used for Module
+# def conftime(res): # only used for Module
 def conftime():
 
     my_Confirmed_Dict = {}                                     # leeres Dictionary erzeugen
