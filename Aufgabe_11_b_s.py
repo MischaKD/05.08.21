@@ -22,21 +22,28 @@ with open (dateiname) as f: # Datei öffnen (Lesen-modus voreingestellt)
 # print()
 # print(spalte3)
 
-#plt.subplot(111)
-fig = plt.figure(figsize=(18.0, 9.0))
-plt.plot(spalte1, spalte2, "^r", label="data")  # einfacher Plot mit marker "o" linestyle "-" colour "red"
-plt.ylabel("spalte2")                                  # y-Achsenbeschriftung erzeugen
-plt.xlabel("spalte1")
-plt.title("Aufgabe_11_b_s")
+# #plt.subplot(111)
+# fig = plt.figure(figsize=(18.0, 9.0))
+# plt.plot(spalte1, spalte2, "^r", label="data")  # einfacher Plot mit marker "o" linestyle "-" colour "red"
+# plt.ylabel("spalte2")                                  # y-Achsenbeschriftung erzeugen
+# plt.xlabel("spalte1")
+# plt.title("Aufgabe_11_b_s")
+# # plt.show()
+# # fig2 = plt.figure(figsize=(10.0, 5.0))
+# plt.plot(spalte1, spalte3, "o-b", label="data")
+# plt.ylabel("spalte3")
+# plt.xlabel("spalte1")
+# plt.title("Aufgabe_11_a_s")
+# #plt.xticks([1.0,2.0, 3.0])
+# # plt.grid()
+# # hier koennen weitere Formatbefehle folgen
+# plt.legend()                                                 # legend benötigt "label" bei "plt.plot"
 # plt.show()
-# fig2 = plt.figure(figsize=(10.0, 5.0))
-plt.plot(spalte1, spalte3, "o-b", label="data")
-plt.ylabel("spalte3")
-plt.xlabel("spalte1")
-plt.title("Aufgabe_11_a_s")
-#plt.xticks([1.0,2.0, 3.0])
-# plt.grid()
-# hier koennen weitere Formatbefehle folgen
+
+#alternaiva
+
+fig, (ax1, ax2) = plt.subplots(1,2) # 2,1 Plots uebereinander , 1,2=: 2 Plots nebeneinander
+ax1.plot(spalte1, spalte2)
+ax2.plot(spalte1, spalte3)
 plt.legend()                                                 # legend benötigt "label" bei "plt.plot"
 plt.show()
-
