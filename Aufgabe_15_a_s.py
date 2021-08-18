@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from tkinter import filedialog
 from matplotlib.axis import Axis
 import matplotlib.patches as mpatches
-
+from tkinter import filedialog, simpledialog, messagebox, colorchooser
+import os.path
 import numpy as np
 
 
@@ -17,14 +18,18 @@ def fileopen():
 #    root.update()
     fname = filedialog.askopenfilename(filetypes=[("json files","*.json"),("All files","*.*")], initialdir = "C:/users/alfa/python", title = "Select File:")
     print (fname,type(fname))
-    tk.set(fname)
+    tk_fname.set(fname)
 
 def myplot(y):
     print(y)
     # Explore the structure of the data.
-    filename = r'C:/Users/alarmee/pythonProject/alfakurs/eq_data_1_day_m1.json'
-    with open(filename) as f:
-        all_eq_data = json.load(f)
+    # filename = r'C:/Users/alarmee/pythonProject/alfakurs/eq_data_1_day_m1.json'
+    if os.path.exists(fname):
+        with open(fname) as f:
+            all_eq_data = json.load(f)
+    else:
+        res = messagebox.showwarning("please choose the file", "Dies ist eine Warning-MessageBox")
+
 
     all_eq_dicts = all_eq_data['features']  # enthält den key "Features", der die interesssierenden Daten enthält
     #    print(type(all_eq_dicts[0]))  # Alle Daten aus "Features" sind jetzt in all_eq_dicts.
@@ -80,15 +85,17 @@ def myplot(y):
 
 
 root = tk.Tk()
+tk_fname = tk.StringVar()
+fname=""
 x = 12
 y = 20
 l1 = tk.Label(root, text="Plotting")
 l1.grid(row=0, column=0, sticky=tk.E + tk.W, ipadx=40)  # Ohne ipadx = 40 wird ein 2-spaltiges Gitter erzeugt.
 b1 = tk.Button(root, text="Show Plot", command=lambda: myplot(x) if x < 11 else myplot(y))
-b1.grid(row=1, column=0, sticky=tk.E + tk.W)
+b1.grid(row=2, column=0, sticky=tk.E + tk.W)
 b2 = tk.Button(root, text="Quit", command=root.quit)
 b2.grid(row=3, column=0, sticky=tk.E + tk.W)
 b3 = tk.Button(root,text = 'Open File', command = fileopen, bg = "azure4")
-b3.grid(row=2, column=0, sticky=tk.E + tk.W)
+b3.grid(row=1, column=0, sticky=tk.E + tk.W)
 
 root.mainloop()
