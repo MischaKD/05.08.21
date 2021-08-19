@@ -1,14 +1,15 @@
 import tkinter as tk
-from tkinter import filedialog, simpledialog
 import json
 #import matplotlib
 #matplotlib.use('TkAgg')
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from tkinter import filedialog, simpledialog, messagebox, colorchooser
-from tkinter import filedialog
 from matplotlib.axis import Axis
 import matplotlib.patches as mpatches
+import csv
+from datetime import datetime
+import matplotlib.dates as mdates
 
 class Plotwindow:
     def __init__(self, masterframe, size):
@@ -71,7 +72,7 @@ def fileopen():
 
     global fname
 #    root.update()
-    fname = filedialog.askopenfilename(filetypes=[("json files","*.json"),("All files","*.*")], initialdir = "C:/users/alfa/python", title = "Select File:")
+    fname = filedialog.askopenfilename(filetypes=[("csv files","*.csv"), ("json files","*.json"),("All files","*.*")], initialdir = "C:/users/alfa/python", title = "Select File:")
     print (fname,type(fname))
     tk_fname.set(fname)
 
@@ -135,7 +136,54 @@ def myplot(y):
     # ax.set_xticks(xticks)
     plt.show()
 
+def fileopen_csv():
 
+    global fname
+#    root.update()
+    fname = filedialog.askopenfilename(filetypes=[("csv files","*.csv"),("All files","*.*")], initialdir = "C:/users/alfa/python", title = "Select File:")
+    print (fname,type(fname))
+    tk_fname.set(fname)
+
+def readcsv():
+
+    with open(fname, newline= "") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
+        #    print(csv_reader)
+        line_count = 0
+        x, y = [], []
+        #     rowlist = []
+        Titelzeile = next(csv_reader)
+        print(
+            f'Spaltenueberschriften sind: {",".join(Titelzeile)}')  # unterschiedliche Anfuehrungszeichen-typen erforderlich
+        y_lab = Titelzeile[3]  # Read column title
+        for row in csv_reader:
+            #        print(row)
+            date = datetime.strptime(row[2], "%Y%m%d")
+            #        print(date,type(date))
+            x.append(date)
+            y.append(float(row[3]))
+            line_count += 1
+    print(f"Processed {line_count} lines.")
+
+    fig = plt.figure(dpi=128, figsize=(10, 6))
+    plt.ylabel("°C")
+    plt.title("Tageshoechstwerte")
+    plt.plot(x, y, label=y_lab)  # Set Legend entry to column title, then plot
+    #
+    # res = input("Detailed x-axis? (y/N)")
+    #
+    # if res == "y":
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b\n%Y'))  #
+    #    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))   # Die Methode "gca()" bedeutet
+    plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=150))  # "Get current axis".
+    #     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))     #
+    plt.gca().xaxis.set_minor_locator(mdates.MonthLocator(interval=1))  #
+    fig.autofmt_xdate(
+        rotation=30)  # rotate labels to not overlap          # https://matplotlib.org/stable/api/dates_api.html?highlight=daylocator
+    #
+    plt.legend()
+    plt.grid()
+    plt.show()
 #print("__name__:", __name__)
 
 #if __name__ == "__main__":  # verhindert Start bei Import; ermöglicht Start bei Ausführung als Executable.
@@ -154,13 +202,24 @@ buttonframe = tk.Frame(root)
 buttonframe.grid(row=0, column=0, sticky=tk.N + tk.W)
 b1 = tk.Button(buttonframe, text="Plot", command = plotdata, activebackground="red")
 b1.grid(row=0, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
+
 b2 = tk.Button(buttonframe, text="Clear", command = clear, activebackground="red")
 b2.grid(row=0, column=1, sticky=tk.N + tk.S + tk.E + tk.W)
+
 #b2.config(activeforeground="red")
 b3 = tk.Button(buttonframe, text = "Close", command = root.destroy, activebackground="red")
-b3.grid(row=0, column=2, sticky=tk.N + tk.S + tk.E + tk.W)
-b4 = tk.Button(buttonframe, text="Read .json file", command = fileopen)
-b4.grid(row=0, column=3, sticky=tk.N + tk.S + tk.E + tk.W)
-b5 = tk.Button(buttonframe, text="Open .json read file", command=lambda: myplot(x) if x < 11 else myplot(y))
-b5.grid(row=0, column=4, sticky=tk.N + tk.S + tk.E + tk.W)
+b3.grid(row=0, column=6, sticky=tk.N + tk.S + tk.E + tk.W)
+
+b4 = tk.Button(buttonframe, text="Read file", command = fileopen)
+b4.grid(row=0, column=2, sticky=tk.N + tk.S + tk.E + tk.W)
+
+b5 = tk.Button(buttonframe, text="Open json read file", command=lambda: myplot(x) if x < 11 else myplot(y))
+b5.grid(row=0, column=3, sticky=tk.N + tk.S + tk.E + tk.W)
+
+# b6 = tk.Button(buttonframe, text="Read .csv file", command = fileopen_csv)
+# b6.grid(row=0, column=5, sticky=tk.N + tk.S + tk.E + tk.W)
+
+b7 = tk.Button(buttonframe, text="Open csv read file", command = readcsv)
+b7.grid(row=0, column=4, sticky=tk.N + tk.S + tk.E + tk.W)
+
 root.mainloop()
