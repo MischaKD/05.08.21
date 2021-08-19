@@ -144,6 +144,8 @@ root = tk.Tk()
 root.title("MyPlot")
 tk_fname = tk.StringVar()
 fname=""
+x = 12
+y = 20
 mainframe = tk.Frame(root)
 mainframe.grid(row=1, column=0)
 datrd = ReadData() # Instantiierung der Klasse ReadData
@@ -159,6 +161,6 @@ b3 = tk.Button(buttonframe, text = "Close", command = root.destroy, activebackgr
 b3.grid(row=0, column=2, sticky=tk.N + tk.S + tk.E + tk.W)
 b4 = tk.Button(buttonframe, text="Read file", command = fileopen)
 b4.grid(row=0, column=3, sticky=tk.N + tk.S + tk.E + tk.W)
-b5 = tk.Button(buttonframe, text="Open read file", command = myplot)
+b5 = tk.Button(buttonframe, text="Open read file", command=lambda: myplot(x) if x < 11 else myplot(y))
 b5.grid(row=0, column=4, sticky=tk.N + tk.S + tk.E + tk.W)
 root.mainloop()
