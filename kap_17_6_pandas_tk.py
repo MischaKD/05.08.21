@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 plt.style.use('seaborn')  # nice grid background
-
+88
 data1 = {'Country': ['US', 'CA', 'GER', 'UK', 'FR'],
          'GDP_Per_Capita': [45000, 42000, 52000, 49000, 47000]
          }
