@@ -134,7 +134,7 @@ def myplot():
         ax2.set_title("Lender pro Sector", fontsize=18, weight="bold")
         # ax2.tick_params(labelsize=13)
     else:
-        res = messagebox.showwarning("Warning!", "Please choose the file csv")
+        res = messagebox.showwarning("Warning!", "Please choose csv file")
 
 
 def close_program():
@@ -182,7 +182,7 @@ b2.grid(row=3, column=1, sticky=tk.N + tk.S + tk.E + tk.W)
 b4 = tk.Button(root,text = 'Clear', command=clearplot)
 b4.grid(row=4, column=0, sticky=tk.E + tk.W)
 
-b1 = tk.Button(root, text="Quit", command=close_program,  bg="azure4")
+b1 = tk.Button(root, text="Quit", command=close_program)
 b1.grid(row=4, column=1, sticky=tk.N + tk.S + tk.E + tk.W)
 
 
